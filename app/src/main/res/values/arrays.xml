@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="coordinate_format_entries">
+        <item>Decimal Degrees (40.123456°)</item>
+        <item>Degrees Minutes Seconds (40° 7\' 24.4\")</item>
+        <item>Degrees Decimal Minutes (40° 7.407\')</item>
+    </string-array>
+
+    <string-array name="coordinate_format_values">
+        <item>decimal</item>
+        <item>dms</item>
+        <item>ddm</item>
+    </string-array>
+</resources>
