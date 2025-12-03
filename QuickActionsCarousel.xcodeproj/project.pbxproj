@@ -17,6 +17,7 @@
 		A1000016 /* QuickActionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000015 /* QuickActionCell.swift */; };
 		A1000018 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000017 /* HapticManager.swift */; };
 		A100001A /* SampleActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000019 /* SampleActions.swift */; };
+		A100001C /* SubscriptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100001D /* SubscriptionsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		A1000015 /* QuickActionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActionCell.swift; sourceTree = "<group>"; };
 		A1000017 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		A1000019 /* SampleActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleActions.swift; sourceTree = "<group>"; };
+		A100001D /* SubscriptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 				A1000002 /* ContentView.swift */,
 				A100000E /* Models */,
 				A100000C /* Components */,
+				A100001E /* Views */,
 				A100000D /* Utils */,
 				A100001B /* Data */,
 				A1000004 /* Assets.xcassets */,
@@ -115,6 +118,14 @@
 				A1000019 /* SampleActions.swift */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		A100001E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A100001D /* SubscriptionsView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -194,6 +205,7 @@
 				A1000016 /* QuickActionCell.swift in Sources */,
 				A1000018 /* HapticManager.swift in Sources */,
 				A100001A /* SampleActions.swift in Sources */,
+				A100001C /* SubscriptionsView.swift in Sources */,
 				A1000001 /* QuickActionsCarouselApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

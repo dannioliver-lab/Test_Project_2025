@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var showSubscriptions = false
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
@@ -20,9 +22,31 @@ struct ContentView: View {
                 // Quick Actions Carousel
                 QuickActionsCarousel(actions: SampleActions.defaultActions)
                 
+                // Subscriptions Button
+                Button(action: {
+                    showSubscriptions = true
+                }) {
+                    HStack {
+                        Image(systemName: "crown.fill")
+                        Text("View Subscriptions")
+                            .fontWeight(.semibold)
+                    }
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.black)
+                    .cornerRadius(12)
+                }
+                .padding(.horizontal)
+                
                 Spacer()
             }
             .navigationBarHidden(true)
+            .sheet(isPresented: $showSubscriptions) {
+                NavigationView {
+                    SubscriptionsView()
+                }
+            }
         }
     }
 }
