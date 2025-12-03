@@ -4,10 +4,14 @@ import SwiftUI
 struct SubscriptionsView: View {
     @Environment(\.dismiss) var dismiss
     
+    // MARK: - Color Constants
+    private let backgroundColor = Color.black
+    private let cardBackgroundColor = Color(white: 0.15)
+    
     var body: some View {
         ZStack {
             // Solid dark background instead of gradient
-            Color.black
+            backgroundColor
                 .ignoresSafeArea()
             
             ScrollView {
@@ -98,6 +102,16 @@ struct SubscriptionCard: View {
     let features: [String]
     let isPopular: Bool
     
+    // MARK: - Color Constants
+    private let cardBackgroundColor = Color(white: 0.15)
+    
+    // MARK: - Actions
+    private func handleSubscription() {
+        // TODO: Implement actual subscription logic
+        // For now, this is a placeholder for future implementation
+        print("Subscribe to \(title) plan")
+    }
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             // Header with popular badge
@@ -151,9 +165,7 @@ struct SubscriptionCard: View {
             }
             
             // Subscribe button
-            Button(action: {
-                print("Subscribe to \(title) plan")
-            }) {
+            Button(action: handleSubscription) {
                 Text("Subscribe")
                     .font(.headline)
                     .foregroundColor(.black)
@@ -167,7 +179,7 @@ struct SubscriptionCard: View {
         .padding(20)
         .background(
             // Solid dark gray instead of gradient
-            Color(white: 0.15)
+            cardBackgroundColor
         )
         .cornerRadius(16)
         .overlay(
