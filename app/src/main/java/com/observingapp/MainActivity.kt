@@ -44,6 +44,10 @@ class MainActivity : AppCompatActivity() {
     private fun setupUI() {
         setSupportActionBar(binding.toolbar)
         
+        binding.buttonViewSubscriptions.setOnClickListener {
+            startActivity(Intent(this, com.observingapp.ui.SubscriptionsActivity::class.java))
+        }
+        
         binding.buttonSelectLocation.setOnClickListener {
             startActivity(Intent(this, LocationSelectionActivity::class.java))
         }
@@ -82,6 +86,10 @@ class MainActivity : AppCompatActivity() {
     
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.action_subscriptions -> {
+                startActivity(Intent(this, com.observingapp.ui.SubscriptionsActivity::class.java))
+                true
+            }
             R.id.action_settings -> {
                 startActivity(Intent(this, SettingsActivity::class.java))
                 true

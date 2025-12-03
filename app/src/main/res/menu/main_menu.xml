@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     
     <item
+        android:id="@+id/action_subscriptions"
+        android:title="My Subscriptions"
+        android:icon="@drawable/ic_subscriptions"
+        app:showAsAction="never" />
+    
+    <item
         android:id="@+id/action_manage_locations"
         android:title="@string/manage_locations"
         android:icon="@drawable/ic_list"
