@@ -2,6 +2,15 @@
 
 A beautiful, fully-functional web application to track all your online subscriptions in one place.
 
+## 🌐 Live Demo
+
+**Share this link with anyone:**
+**https://dannioliver-lab.github.io/Test_Project_2025/**
+
+The app is deployed on GitHub Pages and ready to use immediately!
+
+---
+
 ## Features
 
 ✅ **View all subscriptions** - See all your subscriptions organized by payment date
