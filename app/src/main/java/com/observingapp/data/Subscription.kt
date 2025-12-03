@@ -39,9 +39,8 @@ data class Subscription(
         val calendar = Calendar.getInstance()
         val today = calendar.get(Calendar.DAY_OF_MONTH)
         
-        // If payment day hasn't occurred this month, use current month
-        // Otherwise, use next month
-        if (today >= paymentDay) {
+        // If payment day has passed this month, use next month
+        if (today > paymentDay) {
             calendar.add(Calendar.MONTH, 1)
         }
         
@@ -56,12 +55,12 @@ data class Subscription(
         val calendar = Calendar.getInstance()
         val today = calendar.get(Calendar.DAY_OF_MONTH)
         
-        return if (today >= paymentDay) {
+        return if (today > paymentDay) {
             // Payment is next month
             val daysInCurrentMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
             (daysInCurrentMonth - today) + paymentDay
         } else {
-            // Payment is this month
+            // Payment is this month or today
             paymentDay - today
         }
     }

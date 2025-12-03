@@ -1,4 +1,68 @@
-# Pull to Refresh Demo
+# Test Project 2025
+
+This repository contains multiple demo applications and a fully-functional subscription tracker.
+
+## Projects
+
+### 1. 💳 Subscription Tracker Web App (NEW!)
+
+A beautiful web application to track all your online subscriptions including Netflix, Disney+, Spotify, and more!
+
+**Features:**
+- ✅ View all subscriptions in a beautiful card layout
+- ✅ Track monthly costs and see total spending
+- ✅ Monitor payment due dates with visual indicators
+- ✅ Store credit card information (last 4 digits) per subscription
+- ✅ Add, edit, and delete subscriptions
+- ✅ Data persists in browser local storage
+- ✅ Fully responsive design
+
+**Location:** `/webapp/`
+
+**Screenshots:**
+
+![Subscription Tracker Empty State](https://github.com/user-attachments/assets/b2b8874a-425f-40fd-a061-2a1d17dbda5e)
+
+![Subscription Tracker with Data](https://github.com/user-attachments/assets/c27dc345-867f-4d78-8a4e-d53c4f62a904)
+
+![Add Subscription Form](https://github.com/user-attachments/assets/22995139-94b9-4606-93b6-aef223f31fc8)
+
+**Quick Start:**
+```bash
+cd webapp
+python3 -m http.server 8080
+# Open http://localhost:8080 in your browser
+```
+
+See [webapp/README.md](webapp/README.md) for full documentation.
+
+---
+
+### 2. 📱 Subscription Tracker Android App (NEW!)
+
+A native Android application for tracking subscriptions, integrated into the existing observing app.
+
+**Features:**
+- ✅ Room database for persistent storage
+- ✅ MVVM architecture with LiveData
+- ✅ Material Design UI components
+- ✅ RecyclerView with DiffUtil for efficient updates
+- ✅ Add/Edit/Delete subscriptions with dialog interface
+- ✅ Total monthly cost calculation
+- ✅ Days until payment tracking
+
+**Location:** `/app/` (integrated into existing Android app)
+
+**Key Components:**
+- `Subscription.kt` - Data model with helper methods
+- `SubscriptionDao.kt` - Room database access object
+- `SubscriptionViewModel.kt` - ViewModel with LiveData
+- `SubscriptionsActivity.kt` - Main subscription list activity
+- `AddEditSubscriptionDialog.kt` - Add/edit dialog fragment
+
+---
+
+### 3. Pull to Refresh Demo
 
 A comprehensive iOS application demonstrating pull-to-refresh functionality using `UIRefreshControl` with proper error handling, loading states, and smooth animations.
 
