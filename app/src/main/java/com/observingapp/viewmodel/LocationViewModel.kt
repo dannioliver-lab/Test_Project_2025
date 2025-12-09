@@ -21,6 +21,10 @@ class LocationViewModel(private val repository: LocationRepository) : ViewModel(
     
     val allLocations: LiveData<List<Location>> = repository.getAllLocations()
     
+    companion object {
+        private const val REFRESH_DELAY_MS = 500L
+    }
+    
     /**
      * Get the preferred location
      */
@@ -153,6 +157,24 @@ class LocationViewModel(private val repository: LocationRepository) : ViewModel(
      */
     fun clearOperationResult() {
         _operationResult.value = null
+    }
+    
+    /**
+     * Refresh locations - triggers a reload with loading state
+     */
+    fun refreshLocations() {
+        viewModelScope.launch {
+            _isLoading.value = true
+            _errorMessage.value = null
+            
+            // Simulate refresh delay for better UX feedback
+            kotlinx.coroutines.delay(REFRESH_DELAY_MS)
+            
+            // The LiveData already observes database changes, so we just need to
+            // provide feedback that the refresh is complete
+            _isLoading.value = false
+            _operationResult.value = "Locations refreshed"
+        }
     }
     
     /**
