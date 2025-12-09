@@ -44,6 +44,11 @@ class LocationSelectionActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         
+        // Setup SwipeRefreshLayout
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            refreshLocations()
+        }
+        
         // Setup RecyclerView
         locationAdapter = LocationAdapter(
             onLocationClick = { location ->
@@ -83,7 +88,8 @@ class LocationSelectionActivity : AppCompatActivity() {
         }
         
         locationViewModel.isLoading.observe(this) { isLoading ->
-            // Show/hide loading indicator if needed
+            // Update SwipeRefreshLayout state
+            binding.swipeRefreshLayout.isRefreshing = isLoading
         }
         
         locationViewModel.errorMessage.observe(this) { errorMessage ->
@@ -140,6 +146,11 @@ class LocationSelectionActivity : AppCompatActivity() {
             }
             .setNegativeButton("Cancel", null)
             .show()
+    }
+    
+    private fun refreshLocations() {
+        // Refresh locations from ViewModel
+        locationViewModel.refreshLocations()
     }
     
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
