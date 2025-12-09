@@ -20,7 +20,7 @@ The app follows MVVM (Model-View-ViewModel) architecture with the Repository pat
 - `LocationRepository.kt`: Data access abstraction
 
 ### UI Layer
-- `LocationSelectionActivity.kt`: Main location management screen
+- `LocationSelectionActivity.kt`: Main location management screen with pull-to-refresh
 - `LocationAdapter.kt`: RecyclerView adapter with DiffUtil
 - `AddLocationDialog.kt`: Location input dialog
 - `SettingsActivity.kt`: App preferences
@@ -28,6 +28,48 @@ The app follows MVVM (Model-View-ViewModel) architecture with the Repository pat
 ### Utilities
 - `PreferencesManager.kt`: SharedPreferences wrapper
 - `LocationViewModel.kt`: UI state management
+
+## Pull-to-Refresh Implementation
+
+### Overview
+Added SwipeRefreshLayout to enable users to manually refresh the location list with a pull-down gesture.
+
+### Components Modified
+1. **activity_location_selection.xml**: Wrapped RecyclerView with SwipeRefreshLayout
+2. **LocationSelectionActivity.kt**: Added refresh listener and state handling
+3. **LocationViewModel.kt**: Added refreshLocations() method with loading state
+
+### Implementation Details
+
+#### Layout Changes
+```xml
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    android:id="@+id/swipeRefreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewLocations"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+```
+
+#### Activity Integration
+- SetOnRefreshListener calls refreshLocations() method
+- Loading state from ViewModel controls SwipeRefreshLayout spinner
+- Success message shown via Snackbar after refresh completes
+
+#### ViewModel Logic
+- refreshLocations() method sets loading state and provides user feedback
+- Simulates 500ms delay for better UX (ensures spinner is visible)
+- LiveData automatically updates UI when database changes
+
+### User Experience
+- Pull down on location list to trigger refresh
+- Loading spinner appears during refresh
+- "Locations refreshed" message appears when complete
+- List automatically updates if any data changes
 
 ## Future Enhancements
 
@@ -46,3 +88,4 @@ The app follows MVVM (Model-View-ViewModel) architecture with the Repository pat
 - Implements proper error handling and validation
 - Includes empty state handling for better UX
 - Uses DiffUtil for efficient RecyclerView updates
+- Pull-to-refresh provides manual data sync capability
