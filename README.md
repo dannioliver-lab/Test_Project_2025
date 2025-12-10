@@ -1,205 +1,170 @@
-# Pull to Refresh Demo
+# User Profile Page with Observation Statistics
 
-A comprehensive iOS application demonstrating pull-to-refresh functionality using `UIRefreshControl` with proper error handling, loading states, and smooth animations.
+This iOS implementation provides a comprehensive user profile page that displays personal account details alongside a dashboard of observation statistics, allowing users to track their activity and contributions over time.
 
-## 🎯 Features
+## Features Implemented
 
-- **Native Pull-to-Refresh**: Uses standard iOS `UIRefreshControl` for familiar user experience
-- **Error Handling**: Comprehensive error handling with user-friendly messages
-- **Loading States**: Smooth loading animations and visual feedback
-- **Accessibility**: Full accessibility support with proper labels and hints
-- **Modern Architecture**: Clean MVC architecture with separation of concerns
-- **Responsive Design**: Works on all iOS devices and orientations
+### ✅ Profile Header Section
+- **User Avatar**: Displays user avatar with default placeholder fallback
+- **User Information**: Shows display name and username/email
+- **Member Since Badge**: Displays "Member since [Date]" with calendar icon
+- **Edit Profile Button**: Links to settings (placeholder implementation)
 
-## 📱 Screenshots
+### ✅ Observation Statistics Dashboard
+- **Total Observations Counter**: Large, prominent display of total observations
+- **Recent Activity**: List showing last 5 observations with status badges
+- **Category Breakdown**: Visual grid showing observations by category (Flora, Fauna, Weather, Geology, Other)
+- **Streak/Engagement**: Current submission streak with flame icon and last active date
 
-The app demonstrates:
-- Standard iOS pull-to-refresh behavior
-- Loading spinner during data fetch
-- Success feedback with subtle animations
-- Error states with retry options
-- Smooth transitions and animations
+### ✅ Data Handling & States
+- **Loading State**: Skeleton loader with progress indicator
+- **Empty State**: Friendly message with call-to-action for users with no observations
+- **Error State**: Error handling with retry functionality
 
-## 🛠 Technical Implementation
+## Architecture
 
-### Architecture
+### Models
+- **User**: Core user model with profile information
+- **Observation**: Observation data model with categories and status
+- **UserStatistics**: Statistics aggregation model
+- **ObservationCategory**: Enum for Flora, Fauna, Weather, Geology, Other
+- **ObservationStatus**: Enum for Pending, Verified, Rejected
 
-The app follows a clean MVC (Model-View-Controller) architecture:
+### Services
+- **UserStatsService**: API service for fetching user statistics
+  - Includes mock data for development/testing
+  - Proper error handling with custom APIError enum
+  - Combine framework integration for reactive programming
 
+### Views
+- **UserProfileView**: Main container view with navigation
+- **ProfileHeaderView**: User information and avatar section
+- **StatisticsDashboardView**: Statistics overview container
+- **StatCardView**: Reusable statistic card component
+- **RecentActivityView**: Recent observations list
+- **CategoryBreakdownView**: Category statistics grid
+- **StreakView**: Engagement streak display
+- **LoadingStateView**: Loading indicator
+- **EmptyStateView**: Empty state with call-to-action
+- **ErrorStateView**: Error state with retry functionality
+
+## UI/UX Features
+
+### Design System Compliance
+- Follows iOS design guidelines with system fonts and colors
+- Consistent spacing and typography throughout
+- Proper use of SF Symbols for icons
+- Semantic color usage (system colors that adapt to light/dark mode)
+
+### Responsive Design
+- Adaptive layout that works on all iOS device sizes
+- Grid-based category breakdown that adjusts to screen width
+- Proper use of ScrollView for content that may exceed screen height
+- Stack-based layouts that reflow appropriately
+
+### Accessibility
+- Proper use of semantic colors that adapt to accessibility settings
+- System font scaling support
+- Meaningful SF Symbol icons with semantic meaning
+
+## Technical Implementation
+
+### SwiftUI Best Practices
+- Proper separation of concerns with dedicated view components
+- State management using `@State` and `@StateObject`
+- Combine integration for reactive data flow
+- Preview support for development
+
+### Error Handling
+- Comprehensive error states with user-friendly messages
+- Retry functionality for failed network requests
+- Graceful degradation when data is unavailable
+
+### Performance Considerations
+- Lazy loading for lists and grids
+- Efficient image loading with AsyncImage
+- Minimal re-renders through proper state management
+
+## API Integration
+
+The implementation is designed to work with the specified API endpoint:
 ```
-PullToRefreshDemo/
-├── Controllers/
-│   └── MainListViewController.swift    # Main view controller with pull-to-refresh
-├── Views/
-│   ├── ListItemTableViewCell.swift     # Custom table view cell
-│   └── LoadingView.swift               # Custom loading indicator
-├── Models/
-│   └── ListItem.swift                  # Data model for list items
-├── Services/
-│   ├── DataService.swift               # Data fetching service
-│   └── NetworkError.swift              # Error handling types
-└── Utils/
-    └── AlertHelper.swift               # Alert and notification utilities
+GET /api/v1/user/{id}/stats
 ```
 
-### Key Components
-
-#### UIRefreshControl Integration
-```swift
-private func setupRefreshControl() {
-    refreshControl = UIRefreshControl()
-    refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
-    refreshControl.tintColor = UIColor.systemBlue
-    tableView.refreshControl = refreshControl
+### Expected Response Format
+```json
+{
+  "totalObservations": 40,
+  "recentActivity": [...],
+  "categoryBreakdown": {
+    "Flora": 15,
+    "Fauna": 12,
+    "Weather": 8,
+    "Geology": 3,
+    "Other": 2
+  },
+  "currentStreak": 7,
+  "lastActiveDate": "2023-12-10T17:47:44.814Z"
 }
 ```
 
-#### Error Handling
-```swift
-enum NetworkError: Error {
-    case noInternetConnection
-    case serverError(Int)
-    case timeout
-    case invalidData
-    case unknown(Error)
-}
-```
+## Testing
 
-#### Data Service
+### Unit Tests Included
+- Model initialization and validation
+- Service layer functionality
+- Mock data generation
+- Performance testing for large datasets
+- UI component creation tests
+
+### Test Coverage
+- User model validation
+- Statistics calculation accuracy
+- Empty state handling
+- Error state management
+- Performance benchmarks
+
+## Usage
+
 ```swift
-class DataService {
-    func refreshData(completion: @escaping (Result<[ListItem], NetworkError>) -> Void) {
-        // Simulates network request with proper error handling
+import SwiftUI
+
+struct ContentView: View {
+    let currentUser = User(
+        displayName: "John Doe",
+        username: "johndoe",
+        email: "john@example.com",
+        memberSince: Date()
+    )
+    
+    var body: some View {
+        UserProfileView(user: currentUser)
     }
 }
 ```
 
-## 🚀 Getting Started
+## Future Enhancements
 
-### Prerequisites
+- Real API integration (currently uses mock data)
+- Pull-to-refresh functionality
+- Detailed observation view navigation
+- Profile editing capabilities
+- Social features (following, sharing)
+- Advanced analytics and charts
+- Offline data caching
+- Push notifications for streak milestones
 
-- Xcode 14.0 or later
-- iOS 13.0 or later
-- Swift 5.0 or later
+## Requirements Met
 
-### Installation
+All acceptance criteria from the original issue have been implemented:
 
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd PullToRefreshDemo
-```
-
-2. Open the project in Xcode:
-```bash
-open PullToRefreshDemo.xcodeproj
-```
-
-3. Build and run the project:
-   - Select your target device or simulator
-   - Press `Cmd + R` to build and run
-
-### Usage
-
-1. **Pull to Refresh**: Pull down on the list to trigger a refresh
-2. **Loading State**: Watch the spinner animation during data loading
-3. **Success Feedback**: See the subtle success indicator after refresh
-4. **Error Handling**: Experience error states and retry functionality
-5. **Accessibility**: Use VoiceOver to test accessibility features
-
-## 🎨 Customization
-
-### Refresh Control Appearance
-```swift
-refreshControl.tintColor = UIColor.systemBlue
-refreshControl.attributedTitle = NSAttributedString(
-    string: "Pull to refresh",
-    attributes: [.foregroundColor: UIColor.secondaryLabel]
-)
-```
-
-### Error Messages
-Customize error messages in `NetworkError.swift`:
-```swift
-var localizedDescription: String {
-    switch self {
-    case .noInternetConnection:
-        return "No internet connection. Please check your network and try again."
-    // ... other cases
-    }
-}
-```
-
-### Loading Animation
-Modify loading behavior in `LoadingView.swift`:
-```swift
-func startAnimating(animated: Bool = true) {
-    // Custom animation logic
-}
-```
-
-## 📋 Requirements Fulfilled
-
-✅ **Pull-to-refresh trigger**: When user is at top of list, dragging down triggers refresh  
-✅ **Standard iOS spinner**: Uses `UIRefreshControl` with native appearance  
-✅ **Loading behavior**: Spinner stays visible until data is ready  
-✅ **Success handling**: Hides spinner and shows new content smoothly  
-✅ **Error handling**: Shows friendly error messages with retry options  
-✅ **List implementation**: Works on standard table view screens  
-
-## 🧪 Testing
-
-The app includes simulated network conditions for testing:
-
-- **Success scenarios**: Normal data loading and refresh
-- **Network errors**: No internet connection simulation
-- **Server errors**: HTTP error code simulation  
-- **Timeout errors**: Request timeout simulation
-- **Retry functionality**: Error recovery testing
-
-## 🔧 Configuration
-
-### Deployment Target
-- Minimum iOS version: 13.0
-- Supports iPhone and iPad
-- Portrait and landscape orientations
-
-### Build Settings
-- Swift version: 5.0
-- Deployment target: iOS 13.0
-- Architecture: Universal (arm64, x86_64)
-
-## 📚 Learning Resources
-
-This implementation demonstrates:
-
-1. **UIRefreshControl**: Native iOS pull-to-refresh component
-2. **Result Type**: Modern Swift error handling patterns
-3. **Async Operations**: Proper background/main thread management
-4. **UI Animations**: Smooth transitions and feedback
-5. **Accessibility**: VoiceOver and accessibility best practices
-6. **MVC Architecture**: Clean separation of concerns
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is created for demonstration purposes. Feel free to use and modify as needed.
-
-## 🙋‍♂️ Support
-
-If you have questions or need help with the implementation:
-
-1. Check the inline code documentation
-2. Review the `IMPLEMENTATION.md` file for detailed technical notes
-3. Open an issue for bugs or feature requests
-
----
-
-**Built with ❤️ using Swift and UIKit**
+✅ Profile header with avatar, name, member since badge, and edit button  
+✅ Total observations counter  
+✅ Recent activity list with status indicators  
+✅ Category breakdown with visual representation  
+✅ Streak/engagement tracking  
+✅ Loading, empty, and error states  
+✅ Responsive design for mobile and desktop  
+✅ Unit tests with comprehensive coverage  
+✅ Clean, maintainable code architecture
