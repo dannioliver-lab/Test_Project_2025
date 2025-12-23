@@ -8,13 +8,14 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(
-    entities = [Location::class],
-    version = 1,
+    entities = [Location::class, Subscription::class],
+    version = 2,
     exportSchema = false
 )
 abstract class LocationDatabase : RoomDatabase() {
     
     abstract fun locationDao(): LocationDao
+    abstract fun subscriptionDao(): SubscriptionDao
     
     companion object {
         @Volatile
@@ -28,6 +29,7 @@ abstract class LocationDatabase : RoomDatabase() {
                     "location_database"
                 )
                 .addCallback(DatabaseCallback())
+                .fallbackToDestructiveMigration() // For simplicity in demo app
                 .build()
                 INSTANCE = instance
                 instance
